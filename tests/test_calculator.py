@@ -1,6 +1,7 @@
 '''My Calculator Test'''
 from calculator import Calculator
 from faker import Faker
+import pytest
 
 # Initialize Faker for generating random test data
 fake = Faker()
@@ -30,12 +31,10 @@ def test_divide_by_zero():
     '''Test that division by zero raises an error'''
     a = fake.random_int()
     b = 0
-    try:
+
+    # Use pytest.raises to check for the expected exception
+    with pytest.raises(ValueError, match="Cannot divide by zero"):
         Calculator.divide(a, b)
-    except ZeroDivisionError:
-        assert True  # Expected behavior
-    else:
-        assert False # Fail the test if no exception is raised
 
 def test_multiply():
     '''Test that multiplication function works'''
